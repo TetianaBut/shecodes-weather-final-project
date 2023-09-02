@@ -23,6 +23,31 @@ function displaytDate() {
   return `${days[day]}  ${hours}:${minutes}`;
 }
 
+// set Unit Temperature
+function setUnitTemperature(event) {
+  event.preventDefault();
+  if (unit === "metric") {
+    currentTemp = (currentTemp * 9) / 5 + 32;
+    document.querySelector("#units").innerHTML = "°F";
+    currentWind = currentWind * 0.621371;
+    unitWind = "miles/h";
+    unit = "imperial";
+  } else {
+    currentTemp = ((currentTemp - 32) * 5) / 9;
+    document.querySelector("#units").innerHTML = `°C`;
+    currentWind = currentWind * 1.60934;
+    unitWind = "km/h";
+    unit = "metric";
+  }
+  document.querySelector("#setTempValue").innerHTML = `${Math.round(
+    currentTemp
+  )}`;
+  document.querySelector("#wind").innerHTML = ` ${Math.round(
+    currentWind
+  )}${unitWind}`;
+  getForecast(positionCityName);
+}
+
 // display Forecast;
 function displayForecast(response) {
   function formatDayForecast(timestamp) {
@@ -150,3 +175,6 @@ document.querySelector("#kyiv").addEventListener("click", nameCityKyiv);
 document.querySelector("#paris").addEventListener("click", nameCityParis);
 document.querySelector("#brno").addEventListener("click", nameCityBrno);
 document.querySelector("#newYork").addEventListener("click", nameCityNewYork);
+// set Unit Temperature
+let setTempValue = document.querySelector("#units");
+setTempValue.addEventListener("click", setUnitTemperature);

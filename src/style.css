@@ -66,7 +66,7 @@ footer {
   color: rgba(39, 33, 66, 0.4);
 }
 .location-btn {
-  background: #1bbaaf;
+  /* background: rgb(143, 210, 248); */
   padding-left: 0;
   padding-right: 0;
   border-radius: 18px;
