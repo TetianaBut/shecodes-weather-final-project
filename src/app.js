@@ -69,6 +69,17 @@ function searchCityName(event) {
   retrieveDataWeather(`query=${inputCityName}`);
 }
 
+// current City Name
+function currentLocation(event) {
+  function retrievePosition(position) {
+    console.log(position);
+    let positionCityName = `lat=${position.coords.latitude}&lon=${position.coords.longitude}`;
+    retrieveDataWeather(positionCityName);
+  }
+  event.preventDefault();
+  navigator.geolocation.getCurrentPosition(retrievePosition);
+}
+
 // start
 let currentTemp = 0;
 let currentFeelsLlike = 0;
@@ -80,6 +91,9 @@ retrieveDataWeather("query=kyiv");
 // search City Name
 let cityInput = document.querySelector("#form-input");
 cityInput.addEventListener("submit", searchCityName);
+// current City Name
+let currentCity = document.querySelector("#current-location-button");
+currentCity.addEventListener("click", currentLocation);
 // favorite navigator
 function nameCityKyiv(event) {
   event.preventDefault();
