@@ -108,9 +108,9 @@ function displayWeatherCondition(response) {
   displayFeelsLlike.innerHTML = `${Math.round(currentFeelsLlike)}`;
   displayHumidity.innerHTML = ` ${response.data.temperature.humidity}`;
   currentWind = response.data.wind.speed;
-  //   if (unit === "metric") {
-  //     currentWind = currentWind * 3.6;
-  //   }
+  if (unit === "metric") {
+    currentWind = currentWind * 3.6;
+  }
   displayWind.innerHTML = ` ${Math.round(currentWind)}${unitWind}`;
   positionCityName = `lat=${response.data.coordinates.latitude}&lon=${response.data.coordinates.longitude}`;
   getForecast(positionCityName);
