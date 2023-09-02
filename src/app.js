@@ -61,6 +61,14 @@ function retrieveDataWeather(cityName) {
   axios.get(apiUrl).then(displayWeatherCondition);
 }
 
+// search  City  Name
+function searchCityName(event) {
+  event.preventDefault();
+  let inputCityName = document.querySelector("#city-input").value;
+  //   console.log(`q=${inputCityName}`);
+  retrieveDataWeather(`query=${inputCityName}`);
+}
+
 // start
 let currentTemp = 0;
 let currentFeelsLlike = 0;
@@ -69,3 +77,29 @@ let unitWind = "km/h";
 let unit = "metric";
 let positionCityName = "";
 retrieveDataWeather("query=kyiv");
+// search City Name
+let cityInput = document.querySelector("#form-input");
+cityInput.addEventListener("submit", searchCityName);
+// favorite navigator
+function nameCityKyiv(event) {
+  event.preventDefault();
+  retrieveDataWeather(`query=${document.querySelector("#kyiv").textContent}`);
+}
+function nameCityParis(event) {
+  event.preventDefault();
+  retrieveDataWeather(`query=${document.querySelector("#paris").textContent}`);
+}
+function nameCityBrno(event) {
+  event.preventDefault();
+  retrieveDataWeather(`query=${document.querySelector("#brno").textContent}`);
+}
+function nameCityNewYork(event) {
+  event.preventDefault();
+  retrieveDataWeather(
+    `query=${document.querySelector("#newYork").textContent}`
+  );
+}
+document.querySelector("#kyiv").addEventListener("click", nameCityKyiv);
+document.querySelector("#paris").addEventListener("click", nameCityParis);
+document.querySelector("#brno").addEventListener("click", nameCityBrno);
+document.querySelector("#newYork").addEventListener("click", nameCityNewYork);
