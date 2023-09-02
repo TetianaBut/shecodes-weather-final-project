@@ -23,9 +23,47 @@ function displaytDate() {
   return `${days[day]}  ${hours}:${minutes}`;
 }
 
+// display Forecast;
+function displayForecast(response) {
+  function formatDayForecast(timestamp) {
+    let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+    let nowDate = new Date(timestamp * 1000);
+    let day = nowDate.getDay();
+    return days[day];
+  }
+  let forecast = response.data.daily;
+  let forecastElement = document.querySelector(".weather-week");
+  let forecastHTML = "";
+  //   console.log(response.data.daily);
+  forecast.forEach(function (forecastDay, index) {
+    if (index < 5) {
+      forecastHTML =
+        forecastHTML +
+        ` <div class="col-2 weather-forecast-date">
+              <div>${formatDayForecast(forecastDay.time)}</div>
+              <img src="${forecastDay.condition.icon_url}"
+                  alt="${forecastDay.condition.icon}" width="64"/>
+              <div class="weather-forecast-temp">
+                <span class="weather-forecast-max">${Math.round(
+                  forecastDay.temperature.maximum
+                )}°  </span>
+                <span class="weather-forecast-min">${Math.round(
+                  forecastDay.temperature.minimum
+                )}°</span>
+              </div>
+            </div>`;
+    }
+  });
+  forecastElement.innerHTML = forecastHTML;
+}
+function getForecast(coordinates) {
+  let apiUrl = `https://api.shecodes.io/weather/v1/forecast?${coordinates}&key=${apiKey}&units=${unit}`;
+  axios.get(apiUrl).then(displayForecast);
+}
+
 // display Weather Condition
 function displayWeatherCondition(response) {
-  console.log(response.data);
+  //   console.log(response.data);
   let displayCity = document.querySelector("h1");
   let displayDate = document.querySelector("#input-time");
   let displayDescript = document.querySelector("#description");
@@ -35,7 +73,6 @@ function displayWeatherCondition(response) {
   let displayHumidity = document.querySelector("#humidity");
   let displayWind = document.querySelector("#wind");
   displayCity.innerHTML = `${response.data.city} ${response.data.country}`;
-  // displayDate.innerHTML = displaytDate(response.data.time * 1000);
   displayDate.innerHTML = displaytDate(response.data.time);
   displayDescript.innerHTML = `${response.data.condition.description}`;
   displayIcons.setAttribute("src", `${response.data.condition.icon_url}`);
@@ -51,28 +88,23 @@ function displayWeatherCondition(response) {
   //   }
   displayWind.innerHTML = ` ${Math.round(currentWind)}${unitWind}`;
   positionCityName = `lat=${response.data.coordinates.latitude}&lon=${response.data.coordinates.longitude}`;
-  console.log(positionCityName);
+  getForecast(positionCityName);
 }
 
 function retrieveDataWeather(cityName) {
-  let apiKey = "3a8a7709fct4f3c29afe0o4baad53aa5";
   let apiUrl = `https://api.shecodes.io/weather/v1/current?${cityName}&key=${apiKey}&units=${unit}`;
-  console.log(apiUrl);
   axios.get(apiUrl).then(displayWeatherCondition);
 }
-
 // search  City  Name
 function searchCityName(event) {
   event.preventDefault();
   let inputCityName = document.querySelector("#city-input").value;
-  //   console.log(`q=${inputCityName}`);
   retrieveDataWeather(`query=${inputCityName}`);
 }
 
 // current City Name
 function currentLocation(event) {
   function retrievePosition(position) {
-    console.log(position);
     let positionCityName = `lat=${position.coords.latitude}&lon=${position.coords.longitude}`;
     retrieveDataWeather(positionCityName);
   }
@@ -81,6 +113,7 @@ function currentLocation(event) {
 }
 
 // start
+let apiKey = "3a8a7709fct4f3c29afe0o4baad53aa5";
 let currentTemp = 0;
 let currentFeelsLlike = 0;
 let currentWind = 0;

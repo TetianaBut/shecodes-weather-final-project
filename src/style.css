@@ -73,10 +73,10 @@ footer {
   box-shadow: 3px 4px 10px rgba(37, 39, 89, 0.8);
 }
 .Weather-temperature img {
-  height: 100px;
-  width: 100px;
+  height: 80px;
+  width: 80px;
   position: relative;
-  top: -20px;
+  top: -10px;
   right: -6px;
 }
 .Weather-temperature strong {
@@ -90,4 +90,20 @@ footer {
   font-size: 18px;
   font-weight: 700;
   line-height: 1.7;
+}
+.weather-forecast {
+  margin-bottom: 15px;
+  text-align: center;
+  color: #454545;
+}
+.weather-week {
+  justify-content: center;
+}
+.weather-forecast-date {
+  color: #454545;
+  font-size: 16px;
+  padding: 0;
+}
+.weather-forecast-min {
+  opacity: 0.5;
 }
