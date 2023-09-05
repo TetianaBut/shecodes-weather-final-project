@@ -1,7 +1,6 @@
 // input now  Date
 function displaytDate() {
   let nowDate = new Date();
-  // console.log(nowDate);
   let hours = nowDate.getHours();
   let minutes = nowDate.getMinutes();
   let day = nowDate.getDay();
@@ -59,20 +58,17 @@ function displayForecast(response) {
   let forecast = response.data.daily;
   let forecastElement = document.querySelector(".weather-week");
   let forecastHTML = "";
-  //   console.log(response.data.daily);
   forecast.forEach(function (forecastDay, index) {
     if (index < 5) {
       forecastHTML =
         forecastHTML +
-        ` <div class="col-2 weather-forecast-date">
+        ` <div class="col-2">
               <div>${formatDayForecast(forecastDay.time)}</div>
               <img src="${forecastDay.condition.icon_url}"
                   alt="${forecastDay.condition.icon}" width="64"/>
-              <div class="weather-forecast-temp">
-                <span class="weather-forecast-max">${Math.round(
-                  forecastDay.temperature.maximum
-                )}°  </span>
-                <span class="weather-forecast-min">${Math.round(
+              <div>
+                <span>${Math.round(forecastDay.temperature.maximum)}°  </span>
+                <span class="weather-forecast-min">/ ${Math.round(
                   forecastDay.temperature.minimum
                 )}°</span>
               </div>
@@ -88,8 +84,8 @@ function getForecast(coordinates) {
 
 // display Weather Condition
 function displayWeatherCondition(response) {
-  //   console.log(response.data);
   let displayCity = document.querySelector("h1");
+  let displayCountry = document.querySelector("#country");
   let displayDate = document.querySelector("#input-time");
   let displayDescript = document.querySelector("#description");
   let displayIcons = document.querySelector("#weather-icon");
@@ -97,7 +93,9 @@ function displayWeatherCondition(response) {
   let displayFeelsLlike = document.querySelector("#FeelsLlike");
   let displayHumidity = document.querySelector("#humidity");
   let displayWind = document.querySelector("#wind");
-  displayCity.innerHTML = `${response.data.city} ${response.data.country}`;
+
+  displayCity.innerHTML = `${response.data.city},  `;
+  displayCountry.innerHTML = `${response.data.country}`;
   displayDate.innerHTML = displaytDate(response.data.time);
   displayDescript.innerHTML = `${response.data.condition.description}`;
   displayIcons.setAttribute("src", `${response.data.condition.icon_url}`);
@@ -105,8 +103,8 @@ function displayWeatherCondition(response) {
   currentTemp = response.data.temperature.current;
   displayTemp.innerHTML = `${Math.round(currentTemp)}`;
   currentFeelsLlike = response.data.temperature.feels_like;
-  displayFeelsLlike.innerHTML = `${Math.round(currentFeelsLlike)}`;
-  displayHumidity.innerHTML = ` ${response.data.temperature.humidity}`;
+  displayFeelsLlike.innerHTML = `${Math.round(currentFeelsLlike)}°`;
+  displayHumidity.innerHTML = ` ${response.data.temperature.humidity}%`;
   currentWind = response.data.wind.speed;
   if (unit === "metric") {
     currentWind = currentWind * 3.6;

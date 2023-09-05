@@ -63,7 +63,11 @@
             </div>
           </form>
           <div>
-            <h1></h1>
+            <div class="country">
+              <h1>Kyiv</h1>
+              <span id="country"></span>
+            </div>
+
             <ul>
               <li id="input-time"></li>
               <li id="description"></li>
@@ -77,19 +81,19 @@
             </div>
             <div class="col-5">
               <ul>
-                <li>Feels like : <span id="FeelsLlike"></span>°</li>
-                <li>Humidity : <span id="humidity"></span>%</li>
+                <li>Feels like : <span id="FeelsLlike"></span></li>
+                <li>Humidity : <span id="humidity"></span></li>
                 <li>Wind : <span id="wind">km/h</span></li>
               </ul>
             </div>
           </div>
           <section class="weather-forecast" id="forecast">
             <div class="row weather-week">
-              <div class="col-2 weather-forecast-date">
+              <div class="col-2">
                 <div>Tue</div>
                 <img src="" alt="" width="64" />
-                <div class="weather-forecast-temp">
-                  <span class="weather-forecast-max"></span>
+                <div>
+                  <span></span>
                   <span class="weather-forecast-min"></span>
                 </div>
               </div>
@@ -98,7 +102,6 @@
         </main>
       </div>
       <footer>
-        <!-- <p class="footer"> -->
         This page was built by
         <a
           href="https://www.shecodes.io/graduates/93245-tetiana-butok"
@@ -117,7 +120,6 @@
         <a href="https://keen-marzipan-2bc87f.netlify.app/" target="_blank">
           hosted on Netlify</a
         >
-        <!-- </p> -->
       </footer>
     </div>
     <script src="./src/app.js"></script>
